@@ -35,7 +35,7 @@ public class BoardDAOImpl implements BoardDAO{
 
 	@Override
 	public void delete(Integer bno) throws Exception {
-		session.delete(namespace + ".delete");
+		session.delete(namespace + ".delete", bno);
 	}
 
 	@Override

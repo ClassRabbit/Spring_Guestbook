@@ -21,32 +21,32 @@ public class BoardDAOTest {
 	@Inject
 	private BoardDAO dao;
 	
-	@Test
-	public void testCreate() throws Exception{
-		BoardVO board = new BoardVO();
-		board.setTitle("title입니다.");
-		board.setContent("컨텐츠입니다.");
-		board.setWriter("user00");
-		dao.create(board);
-	}
-	
-	@Test
-	public void testRead() throws Exception{
-		logger.info(dao.read(5).toString());
-	}
-	
-	@Test
-	public void testUpdate() throws Exception{
-		BoardVO board = new BoardVO();
-		board.setBno(5);
-		board.setTitle("title입니다.2");
-		board.setContent("컨텐츠입니다.2");
-		dao.update(board);
-	}
-
 //	@Test
-//	public void testDelete() throws Exception{
-//		dao.delete(4);
+//	public void testCreate() throws Exception{
+//		BoardVO board = new BoardVO();
+//		board.setTitle("title입니다.");
+//		board.setContent("컨텐츠입니다.");
+//		board.setWriter("user00");
+//		dao.create(board);
 //	}
+//	
+//	@Test
+//	public void testRead() throws Exception{
+//		logger.info(dao.read(5).toString());
+//	}
+//	
+//	@Test
+//	public void testUpdate() throws Exception{
+//		BoardVO board = new BoardVO();
+//		board.setBno(5);
+//		board.setTitle("title입니다.5");
+//		board.setContent("컨텐츠입니다.55");
+//		dao.update(board);
+//	}
+
+	@Test
+	public void testDelete() throws Exception{
+		dao.delete(24);
+	}
 }
 
