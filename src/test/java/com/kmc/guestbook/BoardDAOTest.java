@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kmc.domain.BoardVO;
+import com.kmc.domain.Criteria;
 import com.kmc.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,9 +45,20 @@ public class BoardDAOTest {
 //		dao.update(board);
 //	}
 
+//	@Test
+//	public void testDelete() throws Exception{
+//		dao.delete(24);
+//	}
+	
 	@Test
-	public void testDelete() throws Exception{
-		dao.delete(24);
+	public void testCriteria() throws Exception{
+		Criteria cri = new Criteria();
+		cri.setPage(2);
+		cri.setPerPageNum(5);
+		List<BoardVO> list = dao.listCriteria(cri);
+		
+		for(BoardVO board : list)
+			System.out.println(board.getBno() + " : " + board.getTitle());
 	}
 }
 
