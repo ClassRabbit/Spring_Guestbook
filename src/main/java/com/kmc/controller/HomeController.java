@@ -1,4 +1,4 @@
-package com.kmc.guestbook;
+package com.kmc.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
