@@ -36,16 +36,15 @@ public class ReplyServiceImpl implements ReplyService{
 		dao.delete(rno);
 	}
 
-//	@Override
-//	public List<ReplyVO> listReplyPage(Integer bno, Criteria cri) throws Exception {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public int count(Integer bno) throws Exception {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
+	@Override
+	public List<ReplyVO> listReplyPage(Integer bno, Criteria cri) throws Exception {
+		
+		return dao.listPage(bno, cri);
+	}
+
+	@Override
+	public int count(Integer bno) throws Exception {
+		return dao.count(bno);
+	}
 
 }

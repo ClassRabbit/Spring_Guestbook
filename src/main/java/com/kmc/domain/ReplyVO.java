@@ -10,7 +10,6 @@ public class ReplyVO {
 	private Date regdate;
 	private Date updatedate;
 	
-	/* ���� getter/setter, toString()*/
 	
 	public Integer getRno() {
 		return rno;
