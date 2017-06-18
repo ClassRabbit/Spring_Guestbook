@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kmc.domain.BoardVO;
 import com.kmc.domain.Criteria;
+import com.kmc.domain.SearchCriteria;
 import com.kmc.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -50,15 +51,43 @@ public class BoardDAOTest {
 //		dao.delete(24);
 //	}
 	
+//	@Test
+//	public void testCriteria() throws Exception{
+//		Criteria cri = new Criteria();
+//		cri.setPage(2);
+//		cri.setPerPageNum(5);
+//		List<BoardVO> list = dao.listCriteria(cri);
+//		
+//		for(BoardVO board : list)
+//			System.out.println(board.getBno() + " : " + board.getTitle());
+//	}
+	
+	
+	
+	
 	@Test
-	public void testCriteria() throws Exception{
-		Criteria cri = new Criteria();
-		cri.setPage(2);
-		cri.setPerPageNum(5);
-		List<BoardVO> list = dao.listCriteria(cri);
+	public void testDynamic1() throws Exception
+	{
+		SearchCriteria cri = new SearchCriteria();
 		
-		for(BoardVO board : list)
-			System.out.println(board.getBno() + " : " + board.getTitle());
+		cri.setPage(1);
+		cri.setKeyword("user00");
+		cri.setSearchType("w");
+		
+//		logger.info("=====================================");
+//		
+//		List<BoardVO> list = dao.listSearch(cri);
+//		for(BoardVO boardVO : list)
+//		{
+//			logger.info(boardVO.getBno() + " : " + boardVO.getTitle());
+//			
+//		}
+//		
+//		
+//		logger.info("=====================================");
+		
+		logger.info("count : " + dao.listSearchCount(cri));
 	}
+	
 }
 

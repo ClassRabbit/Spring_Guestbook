@@ -64,10 +64,12 @@
 	</nav>
 	
 	<script type="text/javascript">
-		var msg = '${msg}';
-		if(msg == 'success')
+		$(document).ready
 		{
-			alert(msg);
+			var msg = '${msg}';
+			if(msg == 'success')
+			{
+				alert(msg);
+			}
 		}
-			
 	</script>

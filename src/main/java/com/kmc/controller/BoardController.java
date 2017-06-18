@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kmc.domain.BoardVO;
 import com.kmc.domain.Criteria;
 import com.kmc.domain.PageMaker;
+import com.kmc.domain.SearchCriteria;
 import com.kmc.service.BoardService;
 
 @Controller
@@ -49,47 +50,72 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+//	@RequestMapping(value="/list", method=RequestMethod.GET)
+//	public void listGET(Criteria cri, Model model) throws Exception
+//	{
+//		logger.info("list get............");
+//		
+//		model.addAttribute("list", service.listCriteria(cri));
+//		
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(cri);
+//		pageMaker.setTotalCount(service.listCountCriteria(cri));
+//		model.addAttribute("pageMaker", pageMaker);
+//	}
+	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public void listGET(Criteria cri, Model model) throws Exception
+	public void listGET(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception
 	{
 		logger.info("list get............");
+		logger.info(cri);
 		
-		model.addAttribute("list", service.listCriteria(cri));
+		System.out.println(cri);
+		
+		model.addAttribute("list", service.listSearchCriteria(cri));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(service.listCountCriteria(cri));
+		pageMaker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
 	}
 	
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public void readGET(int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception
+	public void readGET(int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception
 	{
 		model.addAttribute(service.read(bno));
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public void modifyGET(int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception
+	public void modifyGET(int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception
 	{
 		model.addAttribute(service.read(bno));
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modifyPOST(BoardVO board, Criteria cri, RedirectAttributes rttr) throws Exception
+	public String modifyPOST(BoardVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception
 	{
 		service.modify(board);
 		rttr.addFlashAttribute("msg", "success");
+		
 		rttr.addAttribute("page", cri.getPage());
-		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+//		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+//		rttr.addAttribute("searchType", cri.getSearchType());
+//		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		return "redirect:/board/read?bno=" + board.getBno();
 	}
 	
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
-	public String removePOST(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception
+	public String removePOST(@RequestParam("bno") int bno, SearchCriteria cri,RedirectAttributes rttr) throws Exception
 	{
 		System.out.println("remove bno : " + bno);
 		service.remove(bno);
 		rttr.addFlashAttribute("msg", "success");
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/board/list";
 	}
 }

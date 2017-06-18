@@ -64,7 +64,8 @@
 							<tr>
 								<td>${boardVO.bno}</td>
 								<%-- <td><a href='/guestbook/board/read?bno=${boardVO.bno}'> ${boardVO.title}</a></td> --%>
-								<td><a href='/guestbook/board/read${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${boardVO.bno}' >${boardVO.title}</a></td>
+								<%-- <td><a href='/guestbook/board/read${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${boardVO.bno}' >${boardVO.title}</a></td> --%>
+								<td><a href='/guestbook/board/read${pageMaker.makeSearch(pageMaker.cri.page) }&bno=${boardVO.bno}'>${boardVO.title}</a></td>
 								<td>${boardVO.writer}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 										value="${boardVO.regdate}" /></td>
@@ -81,7 +82,7 @@
 
 							<c:if test="${pageMaker.prev}">
 								<li>
-									<a href="list${pageMaker.makeQuery(pageMaker.startPage - 1) }">&raquo;</a>
+									<a href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&raquo;</a>
 								</li>
 							</c:if>
 
@@ -89,13 +90,13 @@
 								end="${pageMaker.endPage }" var="idx">
 								<li
 									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-									<a href="list${pageMaker.makeQuery(idx) }">${idx}</a>
+									<a href="list${pageMaker.makeSearch(idx) }">${idx}</a>
 								</li>
 							</c:forEach>
 
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li>
-									<a href="list${pageMaker.makeQuery(pageMaker.endPage + 1) }">&raquo;</a>
+									<a href="list${pageMaker.makeSearch(pageMaker.endPage + 1) }">&raquo;</a>
 								</li>
 							</c:if>
 
@@ -109,6 +110,20 @@
 	</div>
 	<!-- /.row -->
 </section>
+
+<script>
+	$(document).ready(
+		function() {
+			$('#searchBtn').on("click", function(event) {
+				self.location = "list" + '${pageMaker.makeQuery(1)}'
+						+ "&searchType=" + $("select option:selected").val()
+						+ "&keyword=" + $('#keywordInput').val();
+			});
+			$('#newBtn').on("click", function(event) {
+				self.location = "register";
+			});
+	});
+</script>
 
 <%@include file="../include/footer.jsp"%>
 
